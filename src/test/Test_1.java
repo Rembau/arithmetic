@@ -3,7 +3,7 @@ package test;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import quick.QuickRank;
+import sort.quick.QuickRank;
 
 import conn.Conn;
 

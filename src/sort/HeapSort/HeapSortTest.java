@@ -1,4 +1,4 @@
-package HeapSort;
+package sort.HeapSort;
 public class HeapSortTest {
 /*
 　　* 将数组调整为小根堆，即由小到大排序

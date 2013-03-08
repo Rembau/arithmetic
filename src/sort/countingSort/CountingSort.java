@@ -1,4 +1,4 @@
-package countingSort;
+package sort.countingSort;
 
 public class CountingSort {
 	static class Utils {
