@@ -12,7 +12,7 @@ public class GainData {
 		Random random=new Random();
 		int[] data=new int[getSize()];
 		for(int i=0;i<data.length;i++){
-			data[i]=random.nextInt(getSize());
+			data[i]=random.nextInt(getSize()+1);
 		}
 		return data;
 	}

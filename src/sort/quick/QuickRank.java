@@ -2,6 +2,8 @@ package sort.quick;
 
 import gainData.GainData;
 
+import java.util.Arrays;
+
 public class QuickRank {
 	static long startTime;
 	static long endTime;;
@@ -25,22 +27,27 @@ public class QuickRank {
 	}
 
 	public int partition(int[] data, int low, int high) {
-		int border = low;   //border记录当前比pivot小的数字的边界，找到一个比pivot小的就跟border交换，并且border加一
-		int pivot = data[low];
-		int temp = 0;
-		for (int i = low + 1; i <= high; i++) {
+		int border = low+1;   //border记录当前比pivot小的数字的边界，找到一个比pivot小的就跟border交换，并且border加一
+		int pivot = data[low];                          //2 3 1 4 2 5
+        int tem = 0;
+        int markBig = -1;
+        int markSmall = -1;
+		for (int i = low + 2; i <= high; i++) {
 			c1++;
 			c1_+=2;
 			if (data[i] < pivot) {
 				c1++;
-				temp = data[border];
+                tem = data[border];
 				data[border] = data[i];
-				data[i] = temp;
+				data[i] = tem;
+                System.out.println(border+" "+i);
 				c1_+=4;
 				border++;
 			}
 		}
-		return border--;
+        data[low]=data[border];
+        data[border] = pivot;
+		return border;
 	}
 
 	/**
@@ -94,20 +101,22 @@ public class QuickRank {
 
 	public static void main(String args[]) {
 		QuickRank quick = new QuickRank();
-		GainData.setSize(10000);
-		int[] num = GainData.randomNum();
-
-		System.out.println(num[0]);
+		GainData.setSize(1000);
+		//int[] num = GainData.randomNum();
+        int[] num=new int[]{2, 3, 1, 4, 2, 5};
+        int[] num_ = Arrays.copyOf(num,num.length);
+        int[] num_1 = Arrays.copyOf(num,num.length);
+        Arrays.sort(num_1);
 		//System.out.println("排序前");
 		//for(int n: num){ System.out.println("  "+n); }
 
 		startTime = System.currentTimeMillis();
 		quick.quickSort(num, 0, num.length - 1);
-		quick.qsort_asc(num,0,num.length-1);
+		quick.qsort_asc(num_,0,num_.length-1);
 		endTime = System.currentTimeMillis();
 		System.out.println("c1="+c1+" c1_="+c1_+" c2="+c2+" c2_="+c2_);
 		//System.out.println("排序后");
-		//for(int n: num){ System.out.println(" "+n); }
+		int i=0; for(int n: num){ System.out.println(num_[i]+" "+n+" "+num_1[i++]); }
 		
 		System.out.println("====快速排序结束====");
 		System.out.println("快速排序用时:" + (endTime - startTime));
