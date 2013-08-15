@@ -69,47 +69,35 @@ public class QuickRank {
 
 	public void qsort_asc(int data[], int low, int high) {
 		int i, j, x;
-		if (low < high) { // 这个条件用来结束递归
-			i = low;
-			j = high;
-			x = data[i];
-			//c2++;
-			//c2_+=3;
-			while (i < j) {
-				while (i < j && data[j] > x) {
-					j--; // 从右向左找第一个小于x的数
-					//c2_+=1;
-                    //c2+=2;
-				}
-				if (i < j) {
-					data[i] = data[j];
-					i++;
-                    //c2++;
-					//c2_+=2;
-				}
-				while (i < j && data[i] < x) {
-					i++; // 从左向右找第一个大于x的数
-					//c2_+=1;
-                    //c2+=2;
-				}
-				if (i < j) {
-					data[j] = data[i];
-					j--;
-                    //c2++;
-					//c2_+=2;
-				}
+		i = low;
+		j = high;
+		x = data[i];
+		if(low == high) return;
+		while (true) {               //2 3 1 4 2 5
+			while (i < j && data[i] <= x) {
+				i++; // 从左向右找第一个大于x的数
 			}
-			data[i] = x;
+			while (i < j && data[j] >= x) {
+				j--; // 从右向左找第一个小于x的数
+			}
+			swap(data,i,j);
+			if(i>=j){
+				break;
+			}
+		}
+		swap(data,j,high);
+		if(low<i){
 			qsort_asc(data, low, i - 1);
-			qsort_asc(data, i + 1, high);
-			//c2_+=3;
+		}
+		if(j<high){
+			qsort_asc(data, j, high);
 		}
 
 	}
 
 	public static void main(String args[]) {
 		QuickRank quick = new QuickRank();
-		GainData.setSize(10000000);
+		GainData.setSize(100);
 		int[] num = GainData.randomNum();
        /* for(int d:num){
             System.out.print(d+" ");
@@ -129,7 +117,7 @@ public class QuickRank {
 		endTime = System.currentTimeMillis();
 		System.out.println("c1="+c1+" c1_="+c1_+" c2="+c2+" c2_="+c2_);
 		//System.out.println("排序后");
-		//int i=0; for(int n: num){ System.out.println(num_[i]+" "+n+" "+num_1[i++]); }
+		int i=0; for(int n: num){ System.out.println(num_[i]+" "+n+" "+num_1[i++]); }
 
 		System.out.println("====快速排序结束====");
 		System.out.println("快速排序用时:" + (midTime - startTime)+" ;;; "+(endTime - midTime));
